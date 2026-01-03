@@ -1,5 +1,73 @@
-venv/
+# =========================
+# Python
+# =========================
 __pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# =========================
+# Virtual Environment
+# =========================
+venv/
 .env
-*.pyc
+.env.*
+
+# =========================
+# OS files
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# IDE / Editor
+# =========================
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# =========================
+# Logs
+# =========================
+*.log
+
+# =========================
+# HuggingFace / Transformers cache
+# =========================
+.cache/
+.cache/huggingface/
+.cache/torch/
+
+# =========================
+# Vector database (FAISS)
+# =========================
+data/vectors/
+faiss_index/
+*.faiss
+*.pkl
+
+# =========================
+# Raw data (PDFs)
+# =========================
+data/raw/
+*.pdf
+
+# =========================
+# Model artifacts
+# =========================
+models/
+checkpoints/
+
+# =========================
+# Jupyter
+# =========================
 .ipynb_checkpoints/
+
+# =========================
+# Build / Distribution
+# =========================
+build/
+dist/
+*.egg-info/
+
