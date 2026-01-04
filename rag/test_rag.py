@@ -1,4 +1,4 @@
-from rag.chain import get_rag_chain
+from .chain import get_rag_chain
 
 rag = get_rag_chain()
 
