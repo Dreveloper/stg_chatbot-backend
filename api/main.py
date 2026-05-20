@@ -1,5 +1,6 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
+import os
 
 app = FastAPI(title="STG Clinical RAG API")
 
@@ -15,11 +16,25 @@ def get_chain():
 class QuestionRequest(BaseModel):
     question: str
 
-@app.post("/ask")
-def ask_question(payload: QuestionRequest):
-    chain = get_chain()
-    return {"answer": chain(payload.question)}
+@app.on_event("startup")
+def startup_event():
+    if not os.getenv("GROQ_API_KEY"):
+        print("WARNING: GROQ_API_KEY not set. API will return errors.")
+    if not os.getenv("OPENAI_API_KEY"):
+        print("WARNING: OPENAI_API_KEY not set. API will return errors.")
 
 @app.get("/health")
 def health_check():
-    return {"status": "ok"}
+    status = "healthy" if os.getenv("GROQ_API_KEY") and os.getenv("OPENAI_API_KEY") else "degraded"
+    return {"status": status}
+
+@app.post("/ask")
+def ask_question(payload: QuestionRequest):
+    try:
+        chain = get_chain()
+        answer = chain.invoke(payload.question)
+        return {"answer": answer}
+    except ValueError as e:
+        raise HTTPException(status_code=500, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error processing request: {str(e)}")
