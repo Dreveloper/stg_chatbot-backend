@@ -1,6 +1,6 @@
 fastapi
 uvicorn
-groq>=1.0.0
+groq>=0.4.1
 chromadb
 langchain-groq
 langchain-chroma
