@@ -12,10 +12,12 @@ WORKDIR /app
 
 COPY --from=builder /root/.local /root/.local
 ENV PATH=/root/.local/bin:$PATH
+ENV TRANSFORMERS_CACHE=/app/.cache/huggingface
+ENV HF_HOME=/app/.cache/huggingface
 
 COPY . .
 
-RUN mkdir -p /app/data/chroma
+RUN mkdir -p /app/data/chroma /app/.cache/huggingface
 
 EXPOSE 10000
 
