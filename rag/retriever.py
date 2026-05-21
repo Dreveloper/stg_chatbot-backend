@@ -11,7 +11,7 @@ def get_retriever():
         if not api_key:
             raise ValueError("GOOGLE_API_KEY environment variable is not set")
         embeddings = GoogleGenerativeAIEmbeddings(
-            model="models/embedding-001",
+            model="gemini-embedding-2",
             google_api_key=api_key
         )
         _vectorstore = Chroma(
