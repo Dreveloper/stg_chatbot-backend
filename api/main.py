@@ -20,10 +20,12 @@ class QuestionRequest(BaseModel):
 def startup_event():
     if not os.getenv("GROQ_API_KEY"):
         print("WARNING: GROQ_API_KEY not set. API will return errors.")
+    if not os.getenv("OPENAI_API_KEY"):
+        print("WARNING: OPENAI_API_KEY not set. API will return errors.")
 
 @app.get("/health")
 def health_check():
-    status = "healthy" if os.getenv("GROQ_API_KEY") else "degraded"
+    status = "healthy" if os.getenv("GROQ_API_KEY") and os.getenv("OPENAI_API_KEY") else "degraded"
     return {"status": status}
 
 @app.post("/ask")

@@ -5,7 +5,6 @@ chromadb
 langchain-groq
 langchain-chroma
 langchain-openai
-sentence-transformers
 pypdf
 pydantic
 python-dotenv
